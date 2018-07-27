@@ -4,6 +4,25 @@ This file contains notes from the [Udemy course Machine Learning A-Z™: Hands-O
 
 [Download the data and files from here](https://www.superdatascience.com/machine-learning/)
 
+## Setting the working directory
+
+To set the working directory you can use the following code:
+
+```
+#Import the os library
+import os
+#Use the getcwd function from that library to store the current working directory
+cwd = os.getcwd()
+#Store the path to the new directory
+newpath = "/Users/paul/Dropbox/workInProgress/ML/Machine Learning A-Z/Part 2 - Regression/Section 5 - Multiple Linear Regression"
+#Change the working directory to the new path
+os.chdir(newpath)
+#Check it
+os.getcwd()
+#Remove it
+del(cwd)
+```
+
 ## Data preprocessing
 
 Some stages:
