@@ -68,7 +68,7 @@ y = dataset.iloc[:, 4].values
 
 ## Encoding categorical data
 
-In one of the examples (multiple regression) some of the data is categorical, so we need to convert it into numeric data. To do this we import the `sklearn` library - specifically two encoders: `from sklearn.preprocessing import LabelEncoder, OneHotEncoder`.
+In one of the examples (multiple regression) some of the data is categorical, so we need to convert it into numeric data. To do this we import the `sklearn` library - specifically two *classes* of encoder: `from sklearn.preprocessing import LabelEncoder, OneHotEncoder`.
 
 We then specify the categorical column and run the `fit_transform` method on it.
 
@@ -188,4 +188,15 @@ plt.ylabel('Salary')
 plt.show()
 
 #The red dots will show the real values, the blue line will show the regression results
+```
+
+## Checking the results of a multiple regression
+
+We can show the difference between the actual y values in the test set and the predicted y values by using some simple `median` and `mean` functions from `numpy` (named `np` in our code).
+
+```
+#Can we show the difference?
+y_diff = y_test - y_pred
+np.median(y_diff)
+np.mean(y_diff)
 ```
