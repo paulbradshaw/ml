@@ -1,4 +1,8 @@
-# Machine learning - notes
+# Machine learning - notes on Support Vector Machine Regression (SVR or SVM)
+
+You can [find out more about Support Vector Machine Regression here](https://uk.mathworks.com/help/stats/understanding-support-vector-machine-regression.html):
+
+> "Support vector machine (SVM) analysis is a popular machine learning tool for classification and regression... SVM regression is considered a nonparametric technique because it relies on kernel functions."
 
 This file contains notes from the [Udemy course Machine Learning A-Z™: Hands-On Python & R In Data Science](https://www.udemy.com/machinelearning/).
 
@@ -11,16 +15,10 @@ To set the working directory you can use the following code:
 ```py
 #Import the os library
 import os
-#Use the getcwd function from that library to store the current working directory
-cwd = os.getcwd()
-#Store the path to the new directory
+#Replace with the path
 newpath = "/Users/paul/Dropbox/workInProgress/ML/Machine Learning A-Z/Part 2 - Regression/Section 5 - Multiple Linear Regression"
 #Change the working directory to the new path
 os.chdir(newpath)
-#Check it
-os.getcwd()
-#Remove it
-del(cwd)
 ```
 
 ## Import the libraries
@@ -44,117 +42,59 @@ Here is the simple linear regression code - note that there's only one column (v
 
 ```py
 # Importing the dataset
-dataset = pd.read_csv('Salary_Data.csv')
-#put the independent variables in one matrix - experience
-#iloc takes rows (: means all)
-#and columns (all up to but not including the last one)
+dataset = pd.read_csv('Position_Salaries.csv')
+#put the independent variables in one matrix
+#iloc takes all rows (:) and column 1 (the last index in the range is not included)
 #then we extract the values and put in new variable X
-X = dataset.iloc[:,:-1].values
-#put the dependent variables - wage - in another     matrix
-#as above, but all rows and just column index 1
-y = dataset.iloc[:, 1].values #may need different number if more dependent variables
+X = dataset.iloc[:, 1:2].values
+#put the dependent variables in another matrix
+#as above, but all rows and just column index 2
+y = dataset.iloc[:, 2].values #may need different number if more dependent variables
 ```
 
-Here is the multiple linear regression code - note that there's only one column (variable) for X but 4 for y (i.e. multiple):
+## Use feature scaling
+
+The library we are going to use doesn't have feature scaling built in, so we need to uncomment any feature scaling lines and apply those to the data.
 
 ```py
-# Importing the dataset
-dataset = pd.read_csv('50_Startups.csv')
-#Select the last column as the dependent variable
-X = dataset.iloc[:, :-1].values
-#How many columns are the independent variables? From the first to the 4th
-y = dataset.iloc[:, 4].values
+# Feature Scaling
+from sklearn.preprocessing import StandardScaler
+#create a scaler object for X and for y
+sc_X = StandardScaler()
+sc_y = StandardScaler()
+#Use the fit_transform method of each to create a scaled version
+X = sc_X.fit_transform(X)
+y = sc_y.fit_transform(y)
 ```
 
-## Encoding categorical data
 
-In one of the examples (multiple regression) some of the data is categorical, so we need to convert it into numeric data. To do this we import the `sklearn` library - specifically two *classes* of encoder: `from sklearn.preprocessing import LabelEncoder, OneHotEncoder`.
+## Using the `sklearn.svm` library for Support Vector Regression (SVR)
 
-We then specify the categorical column and run the `fit_transform` method on it.
+The `sklearn.svm` library (the SVM is for Support Vector Machine) is what we use to create a Support Vector Regression (SVR). To simplify things we call it `SVR` when we import it.
 
 ```py
-# Encoding categorical data
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-#create a LabelEncoder object
-labelencoder = LabelEncoder()
-#The categories we want to encode are in column 3
-X[:, 3] = labelencoder.fit_transform(X[:, 3])
-onehotencoder = OneHotEncoder(categorical_features = [3])
-X = onehotencoder.fit_transform(X).toarray()
-#When this code is run, X should now have 3 columns instead of the category column
+# Fitting SVR to the dataset
+from sklearn.svm import SVR
+#Create a SVR object - specify what type of kernel we want
+regressor = SVR(kernel = 'rbf')
+#Fit our regressor to the data
+regressor.fit(X, y)
 ```
 
-Because we now have 3 new numerical columns that represent the previous categorical column, we also need to remove *one* of those to avoid the **Dummy Variable Trap**:
+We create a regressor object which is an `sklearn.svm` object. We need to specify which **kernel** type to use.
 
-```py
-# Avoiding the Dummy Variable Trap
-X = X[:, 1:] #get rid of one of the columns (the first)
-```
+A kernel is a set of mathematical functions used by the SVM algorithm. In this case `rbf` is specified - it is the most common type - but we could choose others depending on the problem. This [introduction to SVM kernel types](https://data-flair.training/blogs/svm-kernel-functions/) goes into more detail: for example a `linear` kernel might be used with a linear problem, while a **gaussian** kernel (of which `rbf` is one type) is used "when there is no prior knowledge about the data".
 
-## Split the independent and dependent variables into a training and test set
 
-Having split one dataset into another 2, now we split those again to get another 4. To do this we import the `sklearn` library - specifically: `from sklearn.cross_validation import train_test_split`.
 
-When using `train_test_split` we specify how big the test set is going to be. Typically it is 0.2 but in smaller datasets we may use larger proportions.
 
-```py
-# Splitting the dataset into the Training set and Test set
-from sklearn.cross_validation import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 1/3, random_state = 0)
-```
 
-For the multiple regression it's almost the same, but we have chosen a different test size because the dataset is larger.
 
-```py
-# Splitting the dataset into the Training set and Test set
-from sklearn.cross_validation import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
-```
 
-## Running the regressor
 
-Now that we have a training and a test set, we can run a regressor on the training set (keeping the test set for later, to... test).
 
-We import another function from `sklearn` to do this: `from sklearn.linear_model import LinearRegression`
 
-```py
-# Fitting simple linear regression to the training set
-#import the library
-from sklearn.linear_model import LinearRegression
-#create object in that class
-regressor = LinearRegression()
-#Use the .fit method from that class
-#First parameter is X, then y - calculate (learn) the correlation
-regressor.fit(X_train,y_train)
-```
 
-For multiple regression the code is the same:
-
-```py
-# Fitting Multiple Linear Regression to the Training set
-from sklearn.linear_model import LinearRegression
-#Create a LinearRegression object
-regressor = LinearRegression()
-#Use the .fit method from that object on the two training variables
-regressor.fit(X_train, y_train)
-```
-
-## Testing the regression on the test set
-
-Now we can use the `predict` method of the regressor on the *test* dataset for X to predict the results of Y based on the relationship that it calculated with the training set. The results of this prediction are stored in `y_pred`. So we now have these variables:
-
-* The full dataset
-* 2 separate datasets for the dependent variable (y) and the independent variable(s) (X) - any categorical values will have been encoded, and one of those results removed to avoid the dummy variable trap
-* Separate training and test datasets for both the dependent and independent variable (4 in total)
-* A *prediction* dataset showing what the dependent variable (y) *should* be, given new independent variable values (the test set for y), based on a regression analysis of the training set.
-
-```py
-# Predicting the Test set results
-#Use the .predict method of the object on the test set variable
-y_pred = regressor.predict(X_test)
-```
-
-Again the code is the same for simple and multiple linear regression.
 
 ## Plotting the results for simple linear regression
 

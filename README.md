@@ -99,3 +99,27 @@ All possible models:
 1. Select a criterion of **goodness of fit**
 2. Construct all possible regressions - 10 columns would mean 1023 models!
 3. Pick the model with the best criterion
+
+### Polynomial linear regression
+
+* Used to fit patterns which may be *curved*, rather than linear, e.g. the points increase more towards the end. An example might be epidemics which spread slowly at the start and then increase later.
+* Uses variables to the *power of* something rather than simply variable times x. This gives it the *parabolic effect* (the curving)
+* You can try both linear and polynomial to see which fits better.
+* A version of multiple linear regression
+* Still called *linear* because the whole formula is on one line. If division was involved, other coefficients, it would be on multiple lines and not linear.
+
+## Support Vector Regression (SVR)
+
+> "SVR has a different goal compared to linear regression. In linear regression we are trying to *minimise the error* between the prediction and the data. In SVR our goal is to make sure that errors *do not exceed the [error] threshold* [epsilon]." - Kirill Eremenko, [Machine Learning A-Z, Udemy](https://www.udemy.com/machinelearning/learn/v4/t/lecture/10459548?start=0)
+
+### Decision trees
+
+The two types of decision trees are **Classification Trees** and **Regression Trees**. The acronym **CART** helps remember them (Classification And Regression Tree).
+
+Regression Trees are more complex. They split your variables (the scatterplot) into different parts (*leaves*), using an algorithm looking at **information entropy**: the key concept behind this is whether a split *adds* information; the algorithm stops (with a *terminal leaf*) when it cannot add any more meaningful information with any more splits.
+
+Each split creates a *branch* in the decision tree.
+
+For example if your first split is at the 20 point on one axis (X1), the branch for that would be X1<20 (TRUE or FALSE). In other words, the first branch splits the data into whether they fall before or after that line.
+
+Next, the second split is made *within* one of those leaves so that second branch is *only* placed on the appropriate branch. So for example if the split line is drawn for the >20 area and it is drawn where X2 is 170, then the test in that branch would be X2<170. 
