@@ -16,8 +16,8 @@ Next, the second split is made *within* one of those leaves so that second branc
 
 Here are those splits shown on the scatterplot:
 
-![](svr_scatter)
+![](/svr_scatter)
 
 And then how those are represented as a series of branches:
 
-![](svr_tree)
+![](/svr_tree)
