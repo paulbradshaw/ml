@@ -13,3 +13,11 @@ Each split creates a *branch* in the decision tree.
 For example if your first split is at the 20 point on one axis (X1), the branch for that would be X1<20 (TRUE or FALSE). In other words, the first branch splits the data into whether they fall before or after that line.
 
 Next, the second split is made *within* one of those leaves so that second branch is *only* placed on the appropriate branch. So for example if the split line is drawn for the >20 area and it is drawn where X2 is 170, then the test in that branch would be X2<170.
+
+Here are those splits shown on the scatterplot:
+
+![](svr_scatter)
+
+And then how those are represented as a series of branches:
+
+![](svr_tree)
