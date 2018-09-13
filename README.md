@@ -2,7 +2,7 @@
 
 This file contains notes from the [Udemy course Machine Learning A-Z™: Hands-On Python & R In Data Science](https://www.udemy.com/machinelearning/) and the [Coursera course on Machine Learning](https://www.coursera.org/learn/machine-learning/) with Andrew Ng.
 
-[Download the data and files from here](https://www.superdatascience.com/machine-learning/)
+[Download the data and files for the former course from here](https://www.superdatascience.com/machine-learning/)
 
 ## The 3 types of machine learning
 
@@ -11,6 +11,26 @@ I've [written a blog post here](https://onlinejournalismblog.com/2017/12/14/data
 * **Supervised learning**: whereby an algorithm is given *training data* to establish a *relationship* between variables to predict values, or to *classify*/categorise. The point here is that there is a 'right answer' that the algorithm is trained on.
 * **Unsupervised learning** is when you don't know what the answer is, or at least want to see what answer the algorithm comes up with on its own. This is often used to classify things when you think an algorithm might come up with better classifications. The question being asked is "Can you find some structure or patterns in this data?"
 * **Reinforcement learning** is about letting an algorithm discover the *optimal* approach to a task by learning through trial and error (the reinforcement).
+
+### Different models
+
+Each of these types represents a different **model** of machine learning, but you can also talk about models in the following terms:
+
+* Linear regression models (**univariate** linear regression means *one variable*)
+* Non-linear regression models (e.g. when values increase exponentially)
+* Non-linear and non-continous regression models (e.g. decision trees)
+
+Different models fit different **problems**.
+
+### The 'hypothesis'
+
+A machine learning algorithm will typically generate a **hypothesis** which can be applied to new data in order to generate *predictions* or some other result.
+
+For example, an algorithm trained on data on housing might produce the (overly simplified) hypothesis that "House price is equal to square footage times 31.56", or in algebraic terms: `hp = sf * 31.56`. Given any new `sf` (square footage) we can predict the `hp` (house price). Of course in reality the hypothesis is likely to be much more complex and involve many more variables, but you get the idea. It is also often represented in formulaic terms using `h` for *hypothesis* with the theta character like so:
+
+![](https://qph.fs.quoracdn.net/main-qimg-f671fc96001a43560adac1bd8bc87fda)
+
+Of course the term hypothesis is used because this is not a fact, and we can *test* the hypothesis as new data emerges, to determine its accuracy or effectiveness.
 
 ## Data preprocessing
 
@@ -23,6 +43,8 @@ Some stages:
 * Get values on the same scale with **feature scaling**
 
 See [prep_py](/prep_py.md) for those steps in Python and [prep_r](/prep_r.md) for steps in R.
+
+
 
 ## Linear regression
 

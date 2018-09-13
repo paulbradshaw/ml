@@ -2,6 +2,8 @@
 
 The two types of decision trees are **Classification Trees** and **Regression Trees**. The acronym **CART** helps remember them (Classification And Regression Tree).
 
+Decision trees are interesting in *many dimensions* (variables). 
+
 ## Regression trees
 
 Regression Trees are more complex. They split your variables (the scatterplot) into different parts (*leaves*), using an algorithm looking at **information entropy**: the key concept behind this is whether a split *adds* information; the algorithm stops when it cannot add any more meaningful information with any more splits.
