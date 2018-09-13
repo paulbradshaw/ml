@@ -1,8 +1,16 @@
 # Machine learning - notes
 
-This file contains notes from the [Udemy course Machine Learning A-Z™: Hands-On Python & R In Data Science](https://www.udemy.com/machinelearning/).
+This file contains notes from the [Udemy course Machine Learning A-Z™: Hands-On Python & R In Data Science](https://www.udemy.com/machinelearning/) and the [Coursera course on Machine Learning](https://www.coursera.org/learn/machine-learning/) with Andrew Ng.
 
 [Download the data and files from here](https://www.superdatascience.com/machine-learning/)
+
+## The 3 types of machine learning
+
+I've [written a blog post here](https://onlinejournalismblog.com/2017/12/14/data-journalisms-ai-opportunity-the-3-different-types-of-machine-learning-how-they-have-already-been-used/) explaining the 3 types of machine learning with examples of each being used in journalism. These are:
+
+* **Supervised learning**: whereby an algorithm is given *training data* to establish a *relationship* between variables to predict values, or to *classify*/categorise. The point here is that there is a 'right answer' that the algorithm is trained on.
+* **Unsupervised learning** is when you don't know what the answer is, or at least want to see what answer the algorithm comes up with on its own. This is often used to classify things when you think an algorithm might come up with better classifications. The question being asked is "Can you find some structure or patterns in this data?"
+* **Reinforcement learning** is about letting an algorithm discover the *optimal* approach to a task by learning through trial and error (the reinforcement).
 
 ## Data preprocessing
 
