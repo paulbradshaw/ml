@@ -1,6 +1,9 @@
 # Machine learning - notes
 
-This file contains notes from the [Udemy course Machine Learning A-Z™: Hands-On Python & R In Data Science](https://www.udemy.com/machinelearning/) and the [Coursera course on Machine Learning](https://www.coursera.org/learn/machine-learning/) with Andrew Ng.
+This file contains notes from:
+* The [Udemy course Machine Learning A-Z™: Hands-On Python & R In Data Science](https://www.udemy.com/machinelearning/)
+* The [Coursera course on Machine Learning](https://www.coursera.org/learn/machine-learning/) with Andrew Ng.
+* *Interpretable Machine Learning*, an ebook by Christoph Molnar.
 
 [Download the data and files for the former course from here](https://www.superdatascience.com/machine-learning/)
 
@@ -12,6 +15,8 @@ I've [written a blog post here](https://onlinejournalismblog.com/2017/12/14/data
 * **Unsupervised learning** is when you don't know what the answer is, or at least want to see what answer the algorithm comes up with on its own. This is often used to classify things when you think an algorithm might come up with better classifications. The question being asked is "Can you find some structure or patterns in this data?"
 * **Reinforcement learning** is about letting an algorithm discover the *optimal* approach to a task by learning through trial and error (the reinforcement).
 
+If the output is numerical, this is called **regression**; if the output is categorical, this is **classification**. The algorithm might estimate parameters (weighting those) or learning structures (trees) (Molnar 2019)
+
 ### Different models
 
 Each of these types represents a different **model** of machine learning, but you can also talk about models in the following terms:
@@ -22,6 +27,8 @@ Each of these types represents a different **model** of machine learning, but yo
 
 Different models fit different **problems**.
 
+Models are more specifically represented in a formula, explained below:
+
 ### The 'hypothesis'
 
 A machine learning algorithm will typically generate a **hypothesis** which can be applied to new data in order to generate *predictions* or some other result.
@@ -31,6 +38,36 @@ For example, an algorithm trained on data on housing might produce the (overly s
 ![](https://qph.fs.quoracdn.net/main-qimg-f671fc96001a43560adac1bd8bc87fda)
 
 Of course the term hypothesis is used because this is not a fact, and we can *test* the hypothesis as new data emerges, to determine its accuracy or effectiveness.
+
+## The formula/expression
+
+Some conventions:
+
+* `x` is used to denote input
+* `h` is used to denote hypothesis
+* `y` is used to denote output/target prediction
+
+## How effective? The cost function
+
+The **cost function** "takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from x's and the actual output y's" ([source](https://www.coursera.org/learn/machine-learning/supplement/nhzyF/cost-function?errorCode=invalidCredential)). Or, as [this guide puts it](https://towardsdatascience.com/machine-learning-fundamentals-via-linear-regression-41a5d11f5220):
+
+> "In ML, cost functions are used to estimate how badly models are performing. Put simply, a cost function is a measure of how wrong the model is in terms of its ability to estimate the relationship between X and y. This is typically expressed as a difference or distance between the predicted value and the actual value. The cost function (you may also see this referred to as loss or error.) can be estimated by iteratively running the model to compare estimated predictions against “ground truth” — the known values of y.
+
+>"The objective of a ML model, therefore, is to find parameters, weights or a structure that minimises the cost function."
+
+A **gradient descent** is a way of exploring the distances calculated by a cost function. As [one cheatsheet puts it](https://ml-cheatsheet.readthedocs.io/en/latest/gradient_descent.html):
+
+> "Gradient descent is an optimization algorithm used to minimize some function by iteratively moving in the direction of steepest descent as defined by the negative of the gradient. In machine learning, we use gradient descent to update the parameters of our model."
+
+This leads us to a *local minimum* - not necessarily the lowest in the whole scope, but the one that is closest (imagine a 3D landscape with dips and peaks).
+
+In a gradient descent the **learning rate** (*alpha*) is how big a step the algorithm takes each time it looks to find the optimal 'next point' as it searches for the ultimate optimal point. If that is too small, it may slow the gradient descent; if it is too large, it may overshoot the optimal point (or fail to converge, or diverge).
+
+> "We should adjust our parameter [alpha] to ensure that the gradient descent algorithm converges in a reasonable time. Failure to converge or too much time to obtain the minimum value imply that our step size is wrong."
+
+Gradient descent will take smaller steps *anyway* as you converge on a local minimum, because the slope will be less steep.
+
+If you happen to start at the optimal point it will go nowhere - it will stay with that point because the *[tangent point](https://en.wikipedia.org/wiki/Tangent)* 'slope' will be perfectly horizontal, the **derivative point** will be 0.
 
 ## Data preprocessing
 
