@@ -29,13 +29,14 @@ If the output is numerical, this is called **regression**; if the output is cate
 
 Each of these types represents a different **model** of machine learning, but you can also talk about models in the following terms:
 
-* Linear regression models (**univariate** linear regression means *one variable*)
+* Linear regression models (**univariate** linear regression means *one variable*, **multivariate** linear regression has more than one)
 * Non-linear regression models (e.g. when values increase exponentially)
 * Non-linear and non-continous regression models (e.g. decision trees)
+* **Polynomial** regression models use the feature (measure) in more than one way. One [explanation can be found here](https://towardsdatascience.com/polynomial-regression-bbe8b9d97491), which also explains the problems with **under-fitting** and **over-fitting**.
 
 Different models fit different **problems**.
 
-Models are more specifically represented in a formula, explained below:
+Models are more specifically represented in a formula, explained below...
 
 ## The 'hypothesis'
 
