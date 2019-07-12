@@ -12,12 +12,20 @@ This file contains notes from:
 I've [written a blog post here](https://onlinejournalismblog.com/2017/12/14/data-journalisms-ai-opportunity-the-3-different-types-of-machine-learning-how-they-have-already-been-used/) explaining the 3 types of machine learning with examples of each being used in journalism. These are:
 
 * **Supervised learning**: whereby an algorithm is given *training data* to establish a *relationship* between variables to predict values, or to *classify*/categorise. The point here is that there is a 'right answer' that the algorithm is trained on.
-* **Unsupervised learning** is when you don't know what the answer is, or at least want to see what answer the algorithm comes up with on its own. This is often used to classify things when you think an algorithm might come up with better classifications. The question being asked is "Can you find some structure or patterns in this data?"
+* **Unsupervised learning** is when you don't know what the answer is, or at least want to see what answer the algorithm comes up with on its own. This is often used to classify things when you think an algorithm might come up with better classifications. The question being asked is "Can you find some structure or patterns in this data?" The results involve **clustering** (find patterns) and **non-clustering** (extract information from 'noise' that shares a pattern).
 * **Reinforcement learning** is about letting an algorithm discover the *optimal* approach to a task by learning through trial and error (the reinforcement).
+
+[A discussion of non-clustering here tries to tease out the distinction](https://www.reddit.com/r/learnmachinelearning/comments/7zuu73/difference_between_clustering_and_nonclustering/)
+
+> "The way I see it we are finding the commonalities between the 2 voices [in different aural datasets] and then categorizing it so that one voice goes to one category and the other voice goes to another category which is basically clustering as it grouping on the basis of some criterion (the voice)."
+
+[Different clustering techniques are explained in this presentation](http://www.mit.edu/~9.54/fall14/slides/Class13.pdf)
+
+### Classification or regression
 
 If the output is numerical, this is called **regression**; if the output is categorical, this is **classification**. The algorithm might estimate parameters (weighting those) or learning structures (trees) (Molnar 2019)
 
-### Different models
+## Different models
 
 Each of these types represents a different **model** of machine learning, but you can also talk about models in the following terms:
 
@@ -29,7 +37,7 @@ Different models fit different **problems**.
 
 Models are more specifically represented in a formula, explained below:
 
-### The 'hypothesis'
+## The 'hypothesis'
 
 A machine learning algorithm will typically generate a **hypothesis** which can be applied to new data in order to generate *predictions* or some other result.
 
@@ -39,7 +47,7 @@ For example, an algorithm trained on data on housing might produce the (overly s
 
 Of course the term hypothesis is used because this is not a fact, and we can *test* the hypothesis as new data emerges, to determine its accuracy or effectiveness.
 
-## The formula/expression
+### The formula/expression
 
 Some conventions:
 
@@ -69,6 +77,10 @@ Gradient descent will take smaller steps *anyway* as you converge on a local min
 
 If you happen to start at the optimal point it will go nowhere - it will stay with that point because the *[tangent point](https://en.wikipedia.org/wiki/Tangent)* 'slope' will be perfectly horizontal, the **derivative point** will be 0.
 
+**'Batch' gradient descent** uses all the training examples at each stage. In contrast **stochastic gradient descent** (SGD) [uses one example at a time](https://towardsdatascience.com/difference-between-batch-gradient-descent-and-stochastic-gradient-descent-1187f1291aa1) and **mini-batch gradient descent** involves smaller batches. [A Gentle Introduction to Mini-Batch Gradient Descent and How to Configure Batch Size](https://machinelearningmastery.com/gentle-introduction-mini-batch-gradient-descent-configure-batch-size/) explains some of the pros and cons of each method, alongside descriptions and further reading.
+
+
+
 ## Data preprocessing
 
 Some stages:
@@ -77,10 +89,9 @@ Some stages:
 * Replace missing values with **imputation**
 * Turn **categorical data** into numerical data - typically this is done by creating a different column for each category, and using 0 and 1 in that column to represent its presence of absence. These are called **dummy variables**
 * Split into a **training set and test set**
-* Get values on the same scale with **feature scaling**
+* Get values on the same scale with **feature scaling**.
 
 See [prep_py](/prep_py.md) for those steps in Python and [prep_r](/prep_r.md) for steps in R.
-
 
 
 ## Linear regression
@@ -175,6 +186,36 @@ All possible models:
 * A version of multiple linear regression
 * Still called *linear* because the whole formula is on one line. If division was involved, other coefficients, it would be on multiple lines and not linear.
 
+### Multivariate linear regression (linear regression with multiple variables)
+
+Multivariate simply means 'multiple features' - in other words, we are not just calculating a regression based on one feature (e.g. the age of a house has X correlation to its price), but more than one (the age, number of rooms, crime rate, etc.)
+
 ## Support Vector Regression (SVR)
 
 [See the file in this repo](/svr.md)
+
+## Linear algebra
+
+For a primer on concepts such as matrices and vectors, notification conventions etc. [see the file in this repo](/linearalgebra.md)
+
+## Feature scaling and mean normalization
+
+Get values on the same scale with **feature scaling**.
+
+This is because widely varying scales (e.g. 1-5 and 0-5000) make for very skewed ellipses for traversing with gradient descent (which takes longer). In that case 0-5000 might be scaled to 0-50 etc.
+
+> "We can speed up gradient descent by having each of our input values in roughly the same range. This is because θ will descend quickly on small ranges and slowly on large ranges, and so will oscillate inefficiently down to the optimum when the variables are very uneven." [Gradient Descent in Practice I - Feature Scaling](https://www.coursera.org/learn/machine-learning/supplement/CTA0D/gradient-descent-in-practice-i-feature-scaling)
+
+In fact, specifically the advice is to get every feature in this situation into a range between -1 and 1.
+
+The same applies if ranges are too small.
+
+**Mean normalisation** can be used to change the range so that the mean is 0.
+
+> "Mean normalization involves subtracting the average value for an input variable from the values for that input variable resulting in a new average value for the input variable of just zero." [Gradient Descent in Practice I - Feature Scaling](https://www.coursera.org/learn/machine-learning/supplement/CTA0D/gradient-descent-in-practice-i-feature-scaling)
+
+## Convergence tests
+
+You can check gradient descent is working properly by plotting the value of theta against the number of iterations. When the value converges over a large number of iterations (i.e. it doesn't change much even after 100 or 1000 more iterations) then it's probably not going to change much more. This can be codified as 'Declare convergence if J(theta) decreases by less than X in Y iterations'.
+
+If theta is *increasing* over iterations then it is not working. Try a smaller learning rate (alpha).
